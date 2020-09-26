@@ -19,7 +19,7 @@ class RegistrationForm extends React.Component {
     console.log('value');
   };
 
-  handleSubmit = async () => {
+  handleSubmit = async (event) => {
     try {
       const session = {
         username: this.state.username,
@@ -27,6 +27,7 @@ class RegistrationForm extends React.Component {
         password: this.state.password,
       };
       await SessionManager.storeSession(session);
+      this.props.navigation.navigate(event);
     } catch (e) {
       console.log(e);
     }
@@ -105,7 +106,7 @@ class RegistrationForm extends React.Component {
           </Item>
         </Form>
         <Button
-          onPress={this.handleSubmit(screenNames.HOME_SCREEN)}
+          onPress={() => this.handleSubmit(screenNames.HOME_SCREEN)}
           block
           info
           style={styles.footerBottomStyle}>
