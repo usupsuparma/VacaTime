@@ -48,17 +48,18 @@ class RegistrationForm extends React.Component<Prop, State> {
       alert('password harus di isi');
       return;
     }
-    try {
-      const session = {
-        username: username,
-        email: email,
-        password: password,
-      };
-      await SessionManager.storeSession(session);
-      this.props.navigation.navigate(screenNames.HOME_SCREEN);
-    } catch (e) {
-      console.log(e);
-    }
+    this.submitRegister();
+    // try {
+    //   const session = {
+    //     username: username,
+    //     email: email,
+    //     password: password,
+    //   };
+    //   await SessionManager.storeSession(session);
+    //   this.props.navigation.navigate(screenNames.HOME_SCREEN);
+    // } catch (e) {
+    //   console.log(e);
+    // }
     // const request_Headers = {
     //   method: 'POST',
     //   headers: {
@@ -79,6 +80,59 @@ class RegistrationForm extends React.Component<Prop, State> {
     //   .then((res) => console.log('beres', res))
     //   .catch((error) => console.log(error));
     // console.log(response);
+  };
+
+  submitRegister = () => {
+    const {username, email, password} = this.state;
+    this.setState({isLoading: true});
+    let headers = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    };
+
+    /**
+     *  output format response
+     *  {status: true, message: 'success login', data: {username: 'test', email: 'test@mail'}}
+     *  atau di dalam data bisa di masukan token bearier
+     */
+    const url = '127.0.0.1:8080/customers';
+    fetch(url, headers)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.status === true) {
+          let session = {
+            username: username,
+            password: password,
+          };
+          this.storeSession(session);
+          this.props.navigation.navigate(screenNames.HOME_SCREEN);
+        } else {
+          this.setState({isLoading: false});
+          alert('login gagal');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        this.setState({isLoading: false});
+      });
+  };
+
+  storeSession = async (session) => {
+    await SessionManager.storeSession(session);
+    /**
+     * status login bisa di ganti dengan token yang di dapat dari server token bearir
+     */
+    await SessionManager.setStatusLogin('1');
   };
 
   render() {
@@ -151,7 +205,7 @@ class RegistrationForm extends React.Component<Prop, State> {
         </Button>
         <View style={styles.footerSignInStyle}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(screenNames.LOGIN_SCREEN)}>
+            onPress={() => navigation.navigate(screenNames.LOGIN_FORM)}>
             <Text style={styles.SignInStyle}>
               Already have an account? Sign In here
             </Text>

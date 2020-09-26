@@ -22,6 +22,7 @@ import {
 import {Header} from 'react-native-elements';
 import {YOGYAKARTA_SCREEN} from './screenNames';
 import PackageScreen from '../screens/PackageScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -72,7 +73,7 @@ const TabBottom = () => {
 const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name={screenNames.LOGIN_SCREEN} component={Login} />
+      <Stack.Screen name={screenNames.LOGIN_FORM} component={Login} />
       <Stack.Screen
         name={screenNames.REGISTRATION_SCREEN}
         component={Registration}
@@ -89,7 +90,7 @@ const AppStack = () => {
       <Stack.Screen name={screenNames.BOOKING_SCREEN} component={Booking} />
       <Stack.Screen name={screenNames.PAYMENT_SCREEN} component={Payment} />
       <Stack.Screen name={screenNames.CALENDAR_SCREEN} component={Calendar} />
-      <Stack.Screen name={screenNames.LOGIN_SCREEN} component={Login} />
+      <Stack.Screen name={screenNames.LOGIN_FORM} component={Login} />
       <Stack.Screen
         name={screenNames.REGISTRATION_SCREEN}
         component={Registration}
@@ -99,6 +100,7 @@ const AppStack = () => {
         name={screenNames.PACKAGE_SCREEN}
         component={PackageScreen}
       />
+      <Stack.Screen name={screenNames.LOGIN_SCREEN} component={LoginScreen} />
     </Stack.Navigator>
   );
 };

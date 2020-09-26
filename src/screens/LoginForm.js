@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,17 +10,26 @@ import {
 
 import {Item, Input, Form, Label, Button, Thumbnail, Text} from 'native-base';
 import * as screenNames from '../navigation/screenNames';
+import {log} from 'react-native-reanimated';
 
 const Login = ({navigation}) => {
-  const [username, setusername] = React.useState('');
-  const [password, setpassword] = React.useState('');
-  const [isLoading, setLoading] = React.useState(false);
+  const [username, setusername] = useState('');
+  const [password, setpassword] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const _Login = async ({navigation}) => {
     setLoading(true);
     alert(username, password);
     setLoading(false);
   };
+
+  useEffect(() => {
+    fetch('https://reactnative.dev/movies.json')
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
 
   if (isLoading === true) {
     return (
@@ -65,7 +74,11 @@ const Login = ({navigation}) => {
           />
         </Item>
       </Form>
-      <Button onPress={() => _Login} block info style={styles.footerBottomStyle}>
+      <Button
+        onPress={() => _Login}
+        block
+        info
+        style={styles.footerBottomStyle}>
         <Text>Sign In</Text>
       </Button>
       <View style={styles.footerSignUpStyle}>
