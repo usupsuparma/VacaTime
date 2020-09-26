@@ -10,17 +10,32 @@ import {
 import MapView from 'react-native-maps/index';
 import DatePicker from 'react-native-datepicker';
 import * as screenName from '../navigation/screenNames';
+import SessionManager from '../data/SessionManager';
 
 class PackageScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       date: new Date().toISOString().slice(0, 10),
+      isButtonLogin: true,
     };
   }
 
+  componentDidMount() {
+    this.verificationLogin();
+  }
+
+  verificationLogin = async () => {
+    let status = await SessionManager.getStatusLogin();
+    if (status === '1') {
+      this.setState({isButtonLogin: false});
+    } else {
+      this.setState({isButtonLogin: true});
+    }
+  };
+
   render() {
-    const {date} = this.state;
+    const {date, isButtonLogin} = this.state;
     const {navigation, route} = this.props;
     const item = route.params.item;
     return (
@@ -150,6 +165,7 @@ class PackageScreen extends React.Component {
               />
 
               <TouchableOpacity
+                disabled={isButtonLogin}
                 style={{
                   elevation: 2,
                   borderRadius: 3,

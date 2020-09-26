@@ -18,13 +18,13 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  const _Login = async ({navigation}) => {
+  const _Login = async (navigation) => {
     /**
-     * ini hanya data dumie saja
+     * ini hanya data dumie saja karena tidak bisa login ke backend
      */
     let session = {
       username: username,
-      password: password,
+      email: 'test@mail.com',
     };
     await SessionManager.storeSession(session);
     await SessionManager.setStatusLogin('1');
@@ -116,7 +116,7 @@ const Login = ({navigation}) => {
         </Item>
       </Form>
       <Button
-        onPress={() => _Login}
+        onPress={() => _Login(navigation)}
         block
         info
         style={styles.footerBottomStyle}>
