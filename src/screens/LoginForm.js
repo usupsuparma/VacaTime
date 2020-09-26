@@ -11,25 +11,66 @@ import {
 import {Item, Input, Form, Label, Button, Thumbnail, Text} from 'native-base';
 import * as screenNames from '../navigation/screenNames';
 import {log} from 'react-native-reanimated';
+import SessionManager from '../data/SessionManager';
 
 const Login = ({navigation}) => {
-  const [username, setusername] = useState('');
-  const [password, setpassword] = useState('');
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
 
   const _Login = async ({navigation}) => {
-    setLoading(true);
-    alert(username, password);
-    setLoading(false);
-  };
+    /**
+     * ini hanya data dumie saja
+     */
+    let session = {
+      username: username,
+      password: password,
+    };
+    await SessionManager.storeSession(session);
+    await SessionManager.setStatusLogin('1');
+    navigation.navigate(screenNames.HOME_SCREEN);
 
-  useEffect(() => {
-    fetch('https://reactnative.dev/movies.json')
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+    /**
+     * ini bisa digunakan kalau server sudah bisa tinggal disesuikan aja
+     */
+    // setLoading(true);
+    // let headers = {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     username: username,
+    //     password: password,
+    //   }),
+    // };
+    // useEffect(() => {
+    //   fetch('127.0.0.1:8080/login', headers)
+    //     .then((response) => response.json())
+    //     .then((result) => {
+    //       if (result.status === true) {
+    //         let session = {
+    //           username: result.data.userName,
+    //           email: result.data.email,
+    //         };
+    //         this.storeSession(session);
+    //         setLoading(false);
+    //         this.props.navigation.navigate(screenNames.HOME_SCREEN);
+    //       } else {
+    //         setLoading(false);
+    //         alert('login gagal');
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //       setLoading(false);
+    //     })
+    //     .finally(() => {
+    //       this.setState({isLoading: false});
+    //     });
+    // });
+  };
 
   if (isLoading === true) {
     return (
@@ -60,7 +101,7 @@ const Login = ({navigation}) => {
           </Label>
           <Input
             style={styles.inputStyle}
-            onChangeText={(value) => setusername(value)}
+            onChangeText={(value) => setUserName(value)}
           />
         </Item>
         <Item floatingLabel>
@@ -70,7 +111,7 @@ const Login = ({navigation}) => {
           <Input
             style={styles.inputStyle}
             secureTextEntry={true}
-            onChangeText={(value) => setpassword(value)}
+            onChangeText={(value) => setPassword(value)}
           />
         </Item>
       </Form>

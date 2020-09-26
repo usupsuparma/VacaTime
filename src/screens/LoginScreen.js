@@ -47,8 +47,8 @@ class LoginScreen extends React.Component {
       .then((result) => {
         if (result.status === true) {
           let session = {
-            username: userName,
-            password: password,
+            username: result.data.userName,
+            email: result.data.email,
           };
           this.storeSession(session);
           this.props.navigation.navigate(screenNames.HOME_SCREEN);
