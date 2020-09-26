@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import {Item, Input, Form, Button, Thumbnail, Text, Label} from 'native-base';
 import * as screenNames from '../navigation/screenNames';
+import SessionManager from '../data/SessionManager';
 const axios = require('axios').default;
 
 class RegistrationForm extends React.Component {
@@ -14,39 +15,51 @@ class RegistrationForm extends React.Component {
     };
   }
 
-  
-
-  handleChange = value => {
+  handleChange = (value) => {
     console.log('value');
   };
 
-  handleSubmit = async event => { 
-    console.log('state', this.state)
-    var request_Headers = {
-      method: 'POST', headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': 0,
-      },
-      body: JSON.stringify({ 
+  handleSubmit = async () => {
+    try {
+      const session = {
         username: this.state.username,
         email: this.state.email,
-       password: this.state.password})
-
+        password: this.state.password,
+      };
+      await SessionManager.storeSession(session);
+    } catch (e) {
+      console.log(e);
+    }
+    // const request_Headers = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Cache-Control': 'no-cache, no-store, must-revalidate',
+    //     Pragma: 'no-cache',
+    //     Expires: 0,
+    //   },
+    //   body: JSON.stringify({
+    //     username: this.state.username,
+    //     email: this.state.email,
+    //     password: this.state.password,
+    //   }),
+    // };
+    // const request_UserURL = 'http://127.0.0.1:8080/customers';
+    // const response = await fetch(request_UserURL, request_Headers)
+    //   .then((res) => res.json())
+    //   .then((res) => console.log('beres', res))
+    //   .catch((error) => console.log(error));
+    // console.log(response);
   };
-  var request_UserURL = 'http://127.0.0.1:8080/customers';
-  const response = await fetch(request_UserURL, request_Headers).then(res => res.json())
-  .then(res => console.log('beres',res)).catch(error => console.log(error))
-  console.log(response)
-  
-} 
 
   render() {
     const {navigation} = this.props;
     return (
       <View style={styles.containerStyle}>
-        <Image style={styles.bgImageStyle} source={{uri: 'https://i.ibb.co/7k5Nd0H/loadb.jpg'}} />
+        <Image
+          style={styles.bgImageStyle}
+          source={{uri: 'https://i.ibb.co/7k5Nd0H/loadb.jpg'}}
+        />
         <View style={styles.logoStyle}>
           <Thumbnail
             square
@@ -63,7 +76,7 @@ class RegistrationForm extends React.Component {
             <Input
               textContentType="username"
               placeholder="username"
-              onChangeText={val => this.setState({username: val})}
+              onChangeText={(val) => this.setState({username: val})}
               style={styles.inputStyle}
             />
           </Item>
@@ -74,7 +87,7 @@ class RegistrationForm extends React.Component {
             <Input
               textContentType="emailAddress"
               placeholder="email"
-              onChangeText={val => this.setState({email: val})}
+              onChangeText={(val) => this.setState({email: val})}
               style={styles.inputStyle}
             />
           </Item>
@@ -85,7 +98,7 @@ class RegistrationForm extends React.Component {
             <Input
               textContentType="password"
               placeholder="password"
-              onChangeText={val => this.setState({password: val})}
+              onChangeText={(val) => this.setState({password: val})}
               style={styles.inputStyle}
               secureTextEntry={true}
             />
@@ -101,7 +114,7 @@ class RegistrationForm extends React.Component {
         <View style={styles.footerSignInStyle}>
           <TouchableOpacity
             onPress={() => navigation.navigate(screenNames.LOGIN_SCREEN)}>
-            <Text style={styles.signInStyle}>
+            <Text style={styles.SignInStyle}>
               Already have an account? Sign In here
             </Text>
           </TouchableOpacity>
