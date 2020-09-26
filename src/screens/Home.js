@@ -58,13 +58,16 @@ const Home = (props) => {
           <FlatList
             data={product}
             renderItem={({item}) => {
+              console.log(item);
               return (
                 <View style={{alignItems: 'center'}}>
                   <View style={styles.borderStyle}>
                     <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate(screenNames.BANDUNG_SCREEN, {item})
-                      }>
+                      onPress={() => {
+                        navigation.navigate(screenNames.PACKAGE_SCREEN, {
+                          item,
+                        });
+                      }}>
                       <View
                         style={{
                           flex: 1,

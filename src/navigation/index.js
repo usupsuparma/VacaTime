@@ -20,6 +20,8 @@ import {
   Feather,
 } from '../assets/icons/Icons';
 import {Header} from 'react-native-elements';
+import {YOGYAKARTA_SCREEN} from './screenNames';
+import PackageScreen from '../screens/PackageScreen';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -93,6 +95,10 @@ const AppStack = () => {
         component={Registration}
       />
       <Stack.Screen name={screenNames.ABOUT_SCREEN} component={About} />
+      <Stack.Screen
+        name={screenNames.PACKAGE_SCREEN}
+        component={PackageScreen}
+      />
     </Stack.Navigator>
   );
 };
