@@ -1,17 +1,32 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import {Item, Input, Form, Button, Thumbnail, Text, Label} from 'native-base';
 import * as screenNames from '../navigation/screenNames';
 import SessionManager from '../data/SessionManager';
 const axios = require('axios').default;
 
-class RegistrationForm extends React.Component {
+interface Prop {}
+interface State {
+  username: string;
+  email: string;
+  password: string;
+  isLoading: boolean;
+}
+
+class RegistrationForm extends React.Component<Prop, State> {
   constructor() {
     super();
     this.state = {
       username: null,
       email: null,
       password: null,
+      isLoading: false,
     };
   }
 
@@ -19,15 +34,28 @@ class RegistrationForm extends React.Component {
     console.log('value');
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = async () => {
+    const {username, email, password} = this.state;
+    if (username === null) {
+      alert('username harus di isi');
+      return;
+    }
+    if (email === null) {
+      alert('email harus di isi');
+      return;
+    }
+    if (password === null) {
+      alert('password harus di isi');
+      return;
+    }
     try {
       const session = {
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password,
+        username: username,
+        email: email,
+        password: password,
       };
       await SessionManager.storeSession(session);
-      this.props.navigation.navigate(event);
+      this.props.navigation.navigate(screenNames.HOME_SCREEN);
     } catch (e) {
       console.log(e);
     }
@@ -55,6 +83,15 @@ class RegistrationForm extends React.Component {
 
   render() {
     const {navigation} = this.props;
+    const {isLoading} = this.state;
+
+    if (isLoading === true) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color={'#FF9800'} />
+        </View>
+      );
+    }
     return (
       <View style={styles.containerStyle}>
         <Image
@@ -106,7 +143,7 @@ class RegistrationForm extends React.Component {
           </Item>
         </Form>
         <Button
-          onPress={() => this.handleSubmit(screenNames.HOME_SCREEN)}
+          onPress={() => this.handleSubmit()}
           block
           info
           style={styles.footerBottomStyle}>
@@ -173,6 +210,11 @@ const styles = StyleSheet.create({
   SignInStyle: {
     color: 'white',
     fontSize: 15,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

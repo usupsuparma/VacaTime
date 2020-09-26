@@ -12,7 +12,7 @@ async function storeSession(session: Session): Promise<void> {
     [KEY_SESS_EMAIL, session.email],
     [KEY_SESS_PASSWORD, session.password],
   ]);
-  await setStatusLogin(1);
+  await setStatusLogin('1');
 }
 
 async function setStatusLogin(status) {

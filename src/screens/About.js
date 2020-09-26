@@ -30,28 +30,30 @@ export default class About extends Component {
             country!
           </Text>
         </View>
-        <Text>More Further Info Contact US:</Text>
-        <TouchableOpacity>
+        <View style={{marginHorizontal: 16, marginTop: 16}}>
+          <Text>More Further Info Contact US:</Text>
+          <TouchableOpacity style={styles.buttonContainer}>
+            <View style={styles.iconPosition}>
+              <Image style={styles.iconStyle} source={FB} />
+              <Text>Vacatimeid</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonContainer}>
+            <View style={styles.iconPosition}>
+              <Image style={styles.iconStyle} source={IG} />
+              <Text>Vacatime.id</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonContainer}>
+            <View style={styles.iconPosition}>
+              <Image style={styles.iconStyle} source={WA} />
+              <Text>+62813 8686 4464</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.iconPosition}>
-            <Image style={styles.iconStyle} source={FB} />
-            <Text>Vacatimeid</Text>
+            <Image style={styles.iconStyle} source={GM} />
+            <Text>Jl. Cangkuang II no. 6A, Cimahi Selatan, Cimahi</Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={styles.iconPosition}>
-            <Image style={styles.iconStyle} source={IG} />
-            <Text>Vacatime.id</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={styles.iconPosition}>
-            <Image style={styles.iconStyle} source={WA} />
-            <Text>+62813 8686 4464</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.iconPosition}>
-          <Image style={styles.iconStyle} source={GM} />
-          <Text>Jl. Cangkuang II no. 6A, Cimahi Selatan, Cimahi</Text>
         </View>
       </View>
     );
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   },
   logoStyle: {
     marginTop: 70,
-    marginBottom: 80,
+    marginBottom: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -79,5 +81,9 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 30,
     height: 30,
+    marginEnd: 8,
+  },
+  buttonContainer: {
+    marginVertical: 8,
   },
 });
