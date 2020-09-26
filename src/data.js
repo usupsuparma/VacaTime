@@ -56,9 +56,9 @@ export const product = [
       'https://i.ibb.co/Gt5gzzR/bandung.jpg',
       'https://i.ibb.co/61qmHv6/bandung3.jpg',
     ],
-    title: 'South of Bandung Details',
+    title: 'Yogyakarta',
     des: 'DetailFree cancelation before 24 Hours',
-    headerTitle: 'Open Trip Bandung Packag',
+    headerTitle: 'Open Trip Bandung Package',
     duration: 'Duration 9 Hours',
     include: [
       'Tourguide',

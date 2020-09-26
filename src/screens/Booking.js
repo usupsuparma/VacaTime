@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
 import {PAYMENT_SCREEN} from '../navigation/screenNames';
 import SessionManager from '../data/SessionManager';
 
@@ -46,38 +52,30 @@ class Booking extends React.Component {
             marginHorizontal: 16,
             borderWidth: 1,
             borderRadius: 5,
-            borderColor: 'gray',
             shadowColor: '#000',
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.8,
             shadowRadius: 2,
             elevation: 2,
             margin: 5,
-            backgroundColor: 'white',
             padding: 10,
+            borderColor: '#7CC434',
+            backgroundColor: '#E6FFCD',
           }}>
           <View>
             <Text style={{marginTop: 10, marginBottom: 10}}>
               Detail Booking:
             </Text>
-            <Text style={{marginTop: 10, marginBottom: 10}}>Booking code:</Text>
-            <Text style={{marginTop: 10, marginBottom: 10}}>
+            <Text style={styles.marginDivider}>Booking code:</Text>
+            <Text style={styles.marginDivider}>
               Destination: {item.packageTitle}
             </Text>
-            <Text style={{marginTop: 10, marginBottom: 10}}>
-              Description: {item.des}
-            </Text>
+            <Text style={styles.marginDivider}>Description: {item.des}</Text>
 
-            <Text style={{marginTop: 10, marginBottom: 10}}>
-              Customer Data:
-            </Text>
-            <Text style={{marginTop: 10, marginBottom: 10}}>Date: {date}</Text>
-            <Text style={{marginTop: 10, marginBottom: 10}}>
-              Name: {user.username}
-            </Text>
-            <Text style={{marginTop: 10, marginBottom: 10}}>
-              Email: {user.email}
-            </Text>
+            <Text style={styles.marginDivider}>Customer Data:</Text>
+            <Text style={styles.marginDivider}>Date: {date}</Text>
+            <Text style={styles.marginDivider}>Name: {user.username}</Text>
+            <Text style={styles.marginDivider}>Email: {user.email}</Text>
           </View>
         </View>
 
@@ -118,3 +116,10 @@ class Booking extends React.Component {
 }
 
 export default Booking;
+
+const styles = StyleSheet.create({
+  marginDivider: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});

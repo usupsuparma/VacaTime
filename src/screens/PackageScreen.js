@@ -23,7 +23,6 @@ class PackageScreen extends React.Component {
     const {date} = this.state;
     const {navigation, route} = this.props;
     const item = route.params.item;
-    console.log(item);
     return (
       <ScrollView style={styles.containerStyle}>
         <View style={styles.header}>
@@ -152,7 +151,6 @@ class PackageScreen extends React.Component {
 
               <TouchableOpacity
                 style={{
-                  borderWidth: 0.5,
                   elevation: 2,
                   borderRadius: 3,
                   backgroundColor: 'yellow',
@@ -185,6 +183,7 @@ const styles = StyleSheet.create({
     marginLeft: -20,
     paddingTop: 4,
     backgroundColor: '#FFCA28',
+    marginVertical: 8,
   },
   headerText: {
     fontSize: 25,
@@ -205,13 +204,13 @@ const styles = StyleSheet.create({
   },
   border: {
     marginTop: 10,
-    borderColor: 'black',
-    borderWidth: 0.5,
     padding: 5,
-    backgroundColor: 'white',
+    borderColor: '#7CC434',
+    backgroundColor: '#E6FFCD',
     paddingLeft: 10,
-    borderRadius: 8,
+    borderRadius: 16,
     marginHorizontal: 16,
+    paddingHorizontal: 16,
   },
   borderTop: {
     borderColor: 'black',

@@ -12,19 +12,51 @@ import {
 } from 'react-native';
 import * as screenNames from '../navigation/screenNames';
 import {data, product} from '../data';
-import Details from './Details';
 import {
   responsiveHeight,
   responsiveScreenHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 const Home = (props) => {
-  // const value= await AsyncStorage.getItem('user');
-  // if(value){
-  //     alert(value)
-  // }
-
   const {navigation} = props;
+
+  const renderItem = (item) => (
+    <View key={item.id.toString()}>
+      <View style={styles.borderStyle}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate(screenNames.PACKAGE_SCREEN, {
+              item,
+            });
+          }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              marginLeft: 10,
+            }}>
+            <Image source={{uri: item.url}} style={styles.ImageClass} />
+            <View
+              style={{
+                marginHorizontal: 16,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text
+                style={{
+                  alignSelf: 'center',
+                  fontSize: 15,
+                  marginTop: 3,
+                  marginEnd: 8,
+                }}>
+                {item.packageTitle}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 
   return (
     <View style={{flex: 1}}>
@@ -39,15 +71,12 @@ const Home = (props) => {
               alignSelf: 'center',
               paddingTop: 2,
               paddingBottom: 2,
-              borderRadius: 5,
+              paddingHorizontal: 8,
+              borderRadius: 16,
               backgroundColor: 'green',
               marginBottom: 10,
               marginTop: 10,
               alignItems: 'center',
-              borderBottomRightRadius: 20,
-              borderBottomLeftRadius: 20,
-              borderTopRightRadius: 20,
-              borderTopLeftRadius: 20,
             }}>
             <Text
               style={{marginTop: 4, fontSize: 15, color: 'white', padding: 8}}>
@@ -55,47 +84,7 @@ const Home = (props) => {
             </Text>
           </View>
 
-          <FlatList
-            data={product}
-            renderItem={({item}) => {
-              console.log(item);
-              return (
-                <View style={{alignItems: 'center'}}>
-                  <View style={styles.borderStyle}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate(screenNames.PACKAGE_SCREEN, {
-                          item,
-                        });
-                      }}>
-                      <View
-                        style={{
-                          flex: 1,
-                          flexDirection: 'row',
-                          marginLeft: 10,
-                        }}>
-                        <Image
-                          source={{uri: item.url}}
-                          style={styles.ImageClass}
-                        />
-                        <View style={{padding: 3}}>
-                          <Text
-                            style={{
-                              alignSelf: 'center',
-                              fontSize: 15,
-                              marginTop: 3,
-                              marginEnd: 8,
-                            }}>
-                            {item.packageTitle}
-                          </Text>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              );
-            }}
-          />
+          <FlatList data={product} renderItem={({item}) => renderItem(item)} />
         </View>
       </ScrollView>
     </View>
@@ -117,8 +106,8 @@ const styles = StyleSheet.create({
     height: responsiveScreenHeight(30),
   },
   ImageClass: {
-    height: 150,
-    width: 150,
+    height: 100,
+    width: 100,
     alignItems: 'center',
     justifyContent: 'center',
     borderTopLeftRadius: 50,
@@ -136,10 +125,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 10,
     marginBottom: 20,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    borderBottomRightRadius: 50,
-    borderBottomLeftRadius: 50,
+    borderRadius: 16,
+    marginHorizontal: 16,
   },
 });
 export default Home;

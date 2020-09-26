@@ -65,7 +65,7 @@ const Login = ({navigation}) => {
           />
         </Item>
       </Form>
-      <Button onPress={_Login} block info style={styles.footerBottomStyle}>
+      <Button onPress={() => _Login} block info style={styles.footerBottomStyle}>
         <Text>Sign In</Text>
       </Button>
       <View style={styles.footerSignUpStyle}>
